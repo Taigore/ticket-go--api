@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	appCore "github.com/Taigore/ticket-go/app-core"
+	appCore "github.com/Taigore/ticket-go--core"
 )
 
 type ticketBody struct {

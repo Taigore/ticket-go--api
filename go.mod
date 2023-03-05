@@ -1,3 +1,3 @@
-module github.com/Taigore/ticket-go/azure-api
+module github.com/Taigore/ticket-go--api
 
 go 1.20
