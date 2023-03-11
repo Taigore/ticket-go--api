@@ -12,11 +12,11 @@ type ticketBody struct {
 	TicketNumber string
 }
 
-type validationJson struct {
+type validationResponse struct {
 	IsValid bool
 }
 
-type errorJson struct {
+type errorResponse struct {
 	Error string
 }
 
@@ -37,16 +37,20 @@ func handleInner(req *http.Request) (status int, result any) {
 	err := dec.Decode(&body)
 
 	if err != nil {
-		errorResp := new(errorJson)
-		errorResp.Error = fmt.Sprint(err)
-
-		return http.StatusBadRequest, errorResp
+		return http.StatusBadRequest, newErrorJson(err)
 	}
 
 	validationResult := appCore.CheckTicketCode(body.TicketNumber)
 
-	validationResp := new(validationJson)
-	validationResp.IsValid = validationResult.IsValid()
+	validationResp := validationResponse{
+		IsValid: validationResult.IsValid(),
+	}
 
 	return http.StatusOK, validationResp
+}
+
+func newErrorJson(err error) errorResponse {
+	return errorResponse{
+		Error: fmt.Sprint(err),
+	}
 }

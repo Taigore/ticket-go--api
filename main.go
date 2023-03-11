@@ -5,7 +5,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/Taigore/ticket-go/azure-api/checkCode"
+	"github.com/Taigore/ticket-go--api/checkCode"
+	"github.com/Taigore/ticket-go--api/newTicket"
 )
 
 func getPort() string {
@@ -22,6 +23,7 @@ func main() {
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/api/checkCode", checkCode.Handle)
+	mux.HandleFunc("/api/newTicket", newTicket.Handle)
 
 	log.Fatal(http.ListenAndServe(":"+port, mux))
 }
